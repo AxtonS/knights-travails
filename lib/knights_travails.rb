@@ -37,6 +37,11 @@ class Knight
     end
   end
 
+  def index
+    row = @board.coordinates.detect { |row| row.include?(@position)}
+    array = [@board.coordinates.index(row), row.index(@position)]
+  end
+
   def available_moves
     array = []
     if @board.valid_move?(position_y - 2, position_x + 1)
@@ -67,5 +72,6 @@ class Knight
   end
 end
 
-knight = Knight.new
-p knight.available_moves
+knight = Knight.new(0, 2)
+p knight.index
+p knight.position

@@ -11,3 +11,4 @@ Function to determine the shortest path a knight can move to any given space on 
 -The board is created using a array of 8 nested arrays  
 -The knight uses coordinates 0-7, 0-7 to interact with the board  
 -Added an available moves method to the knight class that returns an array of possible moves from current position  
+-Added an index method to the knight class that will return the array coordinates of the given position  
