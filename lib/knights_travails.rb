@@ -43,35 +43,36 @@ class Knight
   end
 
   def available_moves
-    array = []
+    moves = []
     if @board.valid_move?(position_y - 2, position_x + 1)
-      array.push << @board.coordinates[position_y - 2][position_x + 1]
+      moves.push << Knight.new(position_y - 2, position_x + 1)
     end
     if @board.valid_move?(position_y - 1, position_x + 2)
-      array.push << @board.coordinates[position_y - 1][position_x + 2]
+      moves.push << Knight.new(position_y - 1, position_x + 2)
     end
     if @board.valid_move?(position_y + 1, position_x + 2)
-      array.push << @board.coordinates[position_y + 1][position_x + 2]
+      moves.push << Knight.new(position_y + 1, position_x + 2)
     end
     if @board.valid_move?(position_y + 2, position_x + 1)
-      array.push << @board.coordinates[position_y + 2][position_x + 1]
+      moves.push << Knight.new(position_y + 2, position_x + 1)
     end
     if @board.valid_move?(position_y + 2, position_x - 1)
-      array.push << @board.coordinates[position_y + 2][position_x - 1]
+      moves.push << Knight.new(position_y + 2, position_x - 1)
     end
     if @board.valid_move?(position_y + 1, position_x - 2)
-      array.push << @board.coordinates[position_y + 1][position_x - 2]
+      moves.push << Knight.new(position_y + 1, position_x - 2)
     end
     if @board.valid_move?(position_y - 1, position_x - 2)
-      array.push << @board.coordinates[position_y - 1][position_x - 2]
+      moves.push << Knight.new(position_y - 1, position_x - 2)
     end
     if @board.valid_move?(position_y - 2, position_x - 1)
-      array.push << @board.coordinates[position_y - 2][position_x - 1]
+      moves.push << Knight.new(position_y - 2, position_x - 1)
     end
-    array
+    moves
   end
 end
 
-knight = Knight.new(0, 2)
-p knight.index
+knight = Knight.new(0, 3)
 p knight.position
+p knight.index
+p knight.available_moves.map { |node| node.position}
