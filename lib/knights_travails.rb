@@ -14,21 +14,58 @@ class Board
                     %w[a2 b2 c2 d2 e2 f2 g2 h2],
                     %w[a1 b1 c1 d1 e1 f1 g1 h1]]
   end
+
+  def valid_move?(position_y, position_x)
+    return false if (position_y.negative? || position_y > 7) || (position_x.negative? || position_x > 7)
+
+    true
+  end
 end
 
 # contains knight's position
 class Knight
-  attr_accessor :position
+  attr_accessor :position, :position_y, :position_x, :board
 
-  def initialize(position_y = 4, position_x = 3)
+  def initialize(position_y = 4, position_x = 4)
     if (position_y.negative? || position_y > 7) || (position_x.negative? || position_x > 7)
       puts 'Invalid knight placement'
     else
-      board = Board.new
+      @board = Board.new
+      @position_y = position_y
+      @position_x = position_x
       @position = board.coordinates[position_y][position_x]
     end
   end
+
+  def available_moves
+    array = []
+    if @board.valid_move?(position_y - 2, position_x + 1)
+      array.push << @board.coordinates[position_y - 2][position_x + 1]
+    end
+    if @board.valid_move?(position_y - 1, position_x + 2)
+      array.push << @board.coordinates[position_y - 1][position_x + 2]
+    end
+    if @board.valid_move?(position_y + 1, position_x + 2)
+      array.push << @board.coordinates[position_y + 1][position_x + 2]
+    end
+    if @board.valid_move?(position_y + 2, position_x + 1)
+      array.push << @board.coordinates[position_y + 2][position_x + 1]
+    end
+    if @board.valid_move?(position_y + 2, position_x - 1)
+      array.push << @board.coordinates[position_y + 2][position_x - 1]
+    end
+    if @board.valid_move?(position_y + 1, position_x - 2)
+      array.push << @board.coordinates[position_y + 1][position_x - 2]
+    end
+    if @board.valid_move?(position_y - 1, position_x - 2)
+      array.push << @board.coordinates[position_y - 1][position_x - 2]
+    end
+    if @board.valid_move?(position_y - 2, position_x - 1)
+      array.push << @board.coordinates[position_y - 2][position_x - 1]
+    end
+    array
+  end
 end
 
-knight = Knight.new(-1, 7)
-puts knight.position
+knight = Knight.new
+p knight.available_moves
