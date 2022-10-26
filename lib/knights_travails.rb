@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pry-byebug'
+
 # contains game state and possible moves
 class Board
   attr_accessor :coordinates
@@ -26,7 +28,7 @@ end
 class Knight
   attr_accessor :position, :position_y, :position_x, :board
 
-  def initialize(position_y = 4, position_x = 4)
+  def initialize(position_y = 4, position_x = 4, parent = 0)
     if (position_y.negative? || position_y > 7) || (position_x.negative? || position_x > 7)
       puts 'Invalid knight placement'
     else
@@ -34,6 +36,7 @@ class Knight
       @position_y = position_y
       @position_x = position_x
       @position = board.coordinates[position_y][position_x]
+      @parent = parent
     end
   end
 
@@ -45,34 +48,41 @@ class Knight
   def available_moves
     moves = []
     if @board.valid_move?(position_y - 2, position_x + 1)
-      moves.push << Knight.new(position_y - 2, position_x + 1)
+      moves.push << Knight.new(position_y - 2, position_x + 1, self)
     end
     if @board.valid_move?(position_y - 1, position_x + 2)
-      moves.push << Knight.new(position_y - 1, position_x + 2)
+      moves.push << Knight.new(position_y - 1, position_x + 2, self)
     end
     if @board.valid_move?(position_y + 1, position_x + 2)
-      moves.push << Knight.new(position_y + 1, position_x + 2)
+      moves.push << Knight.new(position_y + 1, position_x + 2, self)
     end
     if @board.valid_move?(position_y + 2, position_x + 1)
-      moves.push << Knight.new(position_y + 2, position_x + 1)
+      moves.push << Knight.new(position_y + 2, position_x + 1, self)
     end
     if @board.valid_move?(position_y + 2, position_x - 1)
-      moves.push << Knight.new(position_y + 2, position_x - 1)
+      moves.push << Knight.new(position_y + 2, position_x - 1, self)
     end
     if @board.valid_move?(position_y + 1, position_x - 2)
-      moves.push << Knight.new(position_y + 1, position_x - 2)
+      moves.push << Knight.new(position_y + 1, position_x - 2, self)
     end
     if @board.valid_move?(position_y - 1, position_x - 2)
-      moves.push << Knight.new(position_y - 1, position_x - 2)
+      moves.push << Knight.new(position_y - 1, position_x - 2, self)
     end
     if @board.valid_move?(position_y - 2, position_x - 1)
-      moves.push << Knight.new(position_y - 2, position_x - 1)
+      moves.push << Knight.new(position_y - 2, position_x - 1, self)
     end
     moves
   end
+
+  def shortest_path(target)
+    explored = available_moves
+    until explored.include?(target)
+      
+    end
+  end
+
 end
 
-knight = Knight.new(0, 3)
+knight = Knight.new
 p knight.position
-p knight.index
-p knight.available_moves.map { |node| node.position}
+p knight.shortest_path('f6')
