@@ -17,3 +17,7 @@ Function to determine the shortest path a knight can move to any given space on 
 -Finished method that builds the data structure for the tree that holds each subsequent move as a knight object linked to its previous move and returns the knight object occupying target space  
 -Moved valid_move? method to knight class  
 -Removed inconsequential Board class, and moved the coordinates array into board variable within Knight class  
+-Finish move method to display shortest path to console  
+-Made driver script that generates random knight and position for it to move to for display purposes  
+
+# FINISHED!!!

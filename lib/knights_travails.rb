@@ -4,7 +4,7 @@ require 'pry-byebug'
 
 # creates knight object containing link to parent, position, and method to find next moves
 class Knight
-  attr_accessor :position, :position_y, :position_x, :board
+  attr_accessor :position, :position_y, :position_x, :board, :parent
 
   def initialize(position_y = 4, position_x = 4, parent = nil)
     if (position_y.negative? || position_y > 7) || (position_x.negative? || position_x > 7)
@@ -74,8 +74,23 @@ class Knight
     end
     return find_path(target, next_moves) if find_path(target, next_moves).position == target
   end
+
+  def move(target)
+    return puts "Knight is home already!" if target.downcase == position
+    path = [find_path(target.downcase)]
+    until path[-1].nil?
+      path << (path[-1].parent)
+    end
+    count = path.length - 2
+    puts "Knight moves from #{position.upcase} to #{target.upcase}, here's your path:"
+    path.pop(2)
+    until path.empty?
+      puts "#{path.pop.position.upcase}"
+    end
+    puts "Made it in #{count} moves!"
+  end
 end
 
-knight = Knight.new
-p knight.position
-p knight.find_path('h8').position
+knight = Knight.new(rand(0..7), rand(0..7))
+knight2 = Knight.new(rand(0..7), rand(0..7))
+knight.move(knight2.position)
