@@ -2,7 +2,7 @@
 
 require 'pry-byebug'
 
-# contains game state and possible moves
+# contains board grid and possible moves
 class Board
   attr_accessor :coordinates
 
@@ -28,7 +28,7 @@ end
 class Knight
   attr_accessor :position, :position_y, :position_x, :board
 
-  def initialize(position_y = 4, position_x = 4, parent = 0)
+  def initialize(position_y = 4, position_x = 4, parent = nil)
     if (position_y.negative? || position_y > 7) || (position_x.negative? || position_x > 7)
       puts 'Invalid knight placement'
     else
@@ -74,15 +74,17 @@ class Knight
     moves
   end
 
-  def shortest_path(target)
-    explored = available_moves
-    until explored.include?(target)
-      
-    end
-  end
+  def find_path(target, moves = available_moves)
+    moves.each { |move| return move if move.position == target}
 
+    next_moves = []
+    moves.each do |move|
+      move.available_moves.each { |step| next_moves.push << step}
+    end
+    return find_path(target, next_moves) if find_path(target, next_moves).position == target
+  end
 end
 
 knight = Knight.new
 p knight.position
-p knight.shortest_path('f6')
+p knight.find_path('h1').position
