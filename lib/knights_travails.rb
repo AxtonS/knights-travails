@@ -17,14 +17,10 @@ class Board
                     %w[a1 b1 c1 d1 e1 f1 g1 h1]]
   end
 
-  def valid_move?(position_y, position_x)
-    return false if (position_y.negative? || position_y > 7) || (position_x.negative? || position_x > 7)
-
-    true
-  end
+  
 end
 
-# contains knight's position
+# creates knight object containing link to parent, position, and method to find next moves
 class Knight
   attr_accessor :position, :position_y, :position_x, :board
 
@@ -45,30 +41,36 @@ class Knight
     array = [@board.coordinates.index(row), row.index(@position)]
   end
 
+  def valid_move?(position_y, position_x)
+    return false if (position_y.negative? || position_y > 7) || (position_x.negative? || position_x > 7)
+
+    true
+  end
+
   def available_moves
     moves = []
-    if @board.valid_move?(position_y - 2, position_x + 1)
+    if valid_move?(position_y - 2, position_x + 1)
       moves.push << Knight.new(position_y - 2, position_x + 1, self)
     end
-    if @board.valid_move?(position_y - 1, position_x + 2)
+    if valid_move?(position_y - 1, position_x + 2)
       moves.push << Knight.new(position_y - 1, position_x + 2, self)
     end
-    if @board.valid_move?(position_y + 1, position_x + 2)
+    if valid_move?(position_y + 1, position_x + 2)
       moves.push << Knight.new(position_y + 1, position_x + 2, self)
     end
-    if @board.valid_move?(position_y + 2, position_x + 1)
+    if valid_move?(position_y + 2, position_x + 1)
       moves.push << Knight.new(position_y + 2, position_x + 1, self)
     end
-    if @board.valid_move?(position_y + 2, position_x - 1)
+    if valid_move?(position_y + 2, position_x - 1)
       moves.push << Knight.new(position_y + 2, position_x - 1, self)
     end
-    if @board.valid_move?(position_y + 1, position_x - 2)
+    if valid_move?(position_y + 1, position_x - 2)
       moves.push << Knight.new(position_y + 1, position_x - 2, self)
     end
-    if @board.valid_move?(position_y - 1, position_x - 2)
+    if valid_move?(position_y - 1, position_x - 2)
       moves.push << Knight.new(position_y - 1, position_x - 2, self)
     end
-    if @board.valid_move?(position_y - 2, position_x - 1)
+    if valid_move?(position_y - 2, position_x - 1)
       moves.push << Knight.new(position_y - 2, position_x - 1, self)
     end
     moves
@@ -87,4 +89,4 @@ end
 
 knight = Knight.new
 p knight.position
-p knight.find_path('h1').position
+p knight.find_path('h8').position

@@ -15,3 +15,4 @@ Function to determine the shortest path a knight can move to any given space on 
 -Refactored the available moves method to store an array of knight instances for each position  
 -Added a parent variable to the knight class so that the lineage can be traced as program builds out move paths  
 -Finished method that builds the data structure for the tree that holds each subsequent move as a knight object linked to its previous move and returns the knight object occupying target space  
+-Moved valid_move? method to knight class  
